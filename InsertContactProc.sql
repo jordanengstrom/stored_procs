@@ -10,13 +10,20 @@ CREATE PROCEDURE dbo.InsertContact
 	(
 	@FirstName				VARCHAR(40),
 	@LastName				VARCHAR(40),
-	@DateOfBirth			DATE,
-	@AllowContactByPhone	BIT
+	@DateOfBirth			DATE = NULL,
+	@AllowContactByPhone	BIT,
+	@ContactId				INT OUTPUT
 	)
 AS
 BEGIN;
 
 INSERT INTO dbo.Contacts(FirstName, LastName, DateOfBirth, AllowContactByPhone)
 	VALUES (@FirstName, @LastName, @DateOfBirth, @AllowContactByPhone);
+
+SELECT @ContactId = SCOPE_IDENTITY();
+
+SELECT ContactId, FirstName, LastName, DateOfBirth, AllowContactByPhone
+FROM dbo.Contacts
+WHERE ContactId = @ContactId;
 
 END;
