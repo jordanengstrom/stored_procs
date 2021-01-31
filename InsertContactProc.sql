@@ -23,10 +23,7 @@ INSERT INTO dbo.Contacts(FirstName, LastName, DateOfBirth, AllowContactByPhone)
 	VALUES (@FirstName, @LastName, @DateOfBirth, @AllowContactByPhone);
 
 SELECT @ContactId = SCOPE_IDENTITY();
-
-SELECT ContactId, FirstName, LastName, DateOfBirth, AllowContactByPhone
-FROM dbo.Contacts
-WHERE ContactId = @ContactId;
+EXEC dbo.SelectContact @ContactId = @ContactId;  -- this is a stored procedure chain
 
 SET NOCOUNT OFF;
 
