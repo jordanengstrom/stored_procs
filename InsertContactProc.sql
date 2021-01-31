@@ -17,6 +17,8 @@ CREATE PROCEDURE dbo.InsertContact
 AS
 BEGIN;
 
+SET NOCOUNT ON;
+
 INSERT INTO dbo.Contacts(FirstName, LastName, DateOfBirth, AllowContactByPhone)
 	VALUES (@FirstName, @LastName, @DateOfBirth, @AllowContactByPhone);
 
@@ -25,5 +27,7 @@ SELECT @ContactId = SCOPE_IDENTITY();
 SELECT ContactId, FirstName, LastName, DateOfBirth, AllowContactByPhone
 FROM dbo.Contacts
 WHERE ContactId = @ContactId;
+
+SET NOCOUNT OFF;
 
 END;

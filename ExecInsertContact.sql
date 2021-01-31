@@ -1,9 +1,14 @@
 USE Contacts;
 
-EXEC dbo.InsertContact 
-@FirstName = 'Terry', 
-@LastName = 'Scott', 
---@DateOfBirth = '1911-07-14', 
-@AllowContactByPhone = 0;
+DECLARE @ContactIdOut INT;
 
-SELECT * FROM dbo.Contacts ORDER BY ContactId DESC;
+EXEC dbo.InsertContact 
+@FirstName = 'Goose', 
+@LastName = 'Engstrom', 
+--@DateOfBirth = '1911-07-14', 
+@AllowContactByPhone = 0,
+@ContactId = @ContactIdOut OUTPUT;
+
+SELECT * FROM dbo.Contacts WHERE ContactId = @ContactIdOut ORDER BY ContactId DESC;
+
+SELECT @ContactIdOut AS ContactIdOut;
